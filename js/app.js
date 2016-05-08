@@ -6,7 +6,11 @@
  * jQuery.
  */
 
-// The names and URLs to all of the feeds we'd like available.
+/* The names and URLs to all of the feeds we'd like available.
+ * On top of predefined feeds (Udacity Blog, CSS Tricks, HTML5 Rocks
+ * and Linear Digressions), added two more feeds from CNET News and
+ * TechCrunch Startups.
+ */
 var allFeeds = [
     {
         name: 'Udacity Blog',
@@ -20,6 +24,12 @@ var allFeeds = [
     }, {
         name: 'Linear Digressions',
         url: 'http://feeds.feedburner.com/udacity-linear-digressions'
+    }, {
+        name: 'CNET News',
+        url: 'http://www.cnet.com/rss/news/'
+    }, {
+        name: 'TechCrunch Startups'
+        url: 'http://feeds.feedburner.com/TechCrunch/startups'
     }
 ];
 
