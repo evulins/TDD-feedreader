@@ -28,7 +28,7 @@ var allFeeds = [
         name: 'CNET News',
         url: 'http://www.cnet.com/rss/news/'
     }, {
-        name: 'TechCrunch Startups'
+        name: 'TechCrunch Startups',
         url: 'http://feeds.feedburner.com/TechCrunch/startups'
     }
 ];
