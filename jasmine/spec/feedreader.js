@@ -26,12 +26,11 @@ $(function() {
             expect(allFeeds.length).not.toBe(0);
         });
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
+        /* This test loops through each feed in the allFeeds object
+         * and checks if each feed has a URL defined and that the URL
+         * is not empty.
          */
-        it('have feeds with own un-empty URL defined', function() {
+        it('have feeds with own not-empty URL defined', function() {
             for (var feed in allFeeds) {
                 expect(allFeeds[feed].url).toBeDefined();
                 expect(allFeeds[feed].url.length).not.toBe(0);
@@ -39,143 +38,185 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
+        /* This test loops through each feed in the allFeeds object
+         * and checks if each feed has a name defined and that the
+         * name is not empty.
          */
-        it('have feeds with own un-empty name defined', function() {
+        it('have feeds with own not-empty name defined', function() {
             for (var feed in allFeeds) {
                 expect(allFeeds[feed].name).toBeDefined();
                 expect(allFeeds[feed].name.length).not.toBe(0);
             }
         });
     });
-    /* TODO: Write a new test suite named "The menu" */
+
+    /* This second test suite checks the behaviour and functionality
+     * associated with the menu slider.
+     */
     describe('The menu', function() {
         var body = $('body');
 
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+        // This test checks if the menu slider is hidden by default.
         it('is hidden by default', function() {
             expect(body.hasClass('menu-hidden')).toBe(true);
         });
 
-        /* TODO: Write a test that ensures the menu changes
-         * visibility when the menu icon is clicked. This test
-         * should have two expectations: does the menu display when
-         * clicked and does it hide when clicked again.
+        /* This sub-test suite checks if the menu slider properly
+         * hides and displays when the hamberger icon is clicked.
          */
         describe('icon is clicked', function() {
+            // The hamberger icon
             var menuIcon = $('.menu-icon-link');
             
+            // Prior to each test case, the menuIcon is toggled.
             beforeEach(function() {
                 menuIcon.click();
             });
 
+            /* This test checks if the menu slider is displayed
+             * properly after the menuIcon is clicked after loading.
+             * As checked in earlier test, the menu slider is hidden
+             * by default.
+             */
             it('and the menu is displayed properly', function() {
                 expect(body.hasClass('menu-hidden')).toBe(false);
             });
 
+            /* This test checks if the menu slider that had been
+             * opened, closes properly when the menuIcon is clicked.
+             */
             it('and the menu is hidden properly', function() {
                 expect(body.hasClass('menu-hidden')).toBe(true);
             });
         });
     });
 
-    /* TODO: Write a new test suite named "Initial Entries" */
+    /* This third test suite checks if the initial data is loaded
+     * properly when the application is initialized.
+     */
     describe('Initial Entries', function() {
         var feed = $('.feed');
 
+        /* Before testing, make sure that the initial data is loaded
+         * properly using the loadFeed function. The done function is used
+         * to signal the completion of the asynchronous loadFeed function.
+         */
         beforeEach(function(done) {
             loadFeed(0, done);
         });
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
+
+        /* This test checks that there is at least one .entry element
+         * within the .feed container after finishing loading data using
+         * the loadFeed function.
          */
         it('has at least a single entry after loadFeed', function() {
             expect(feed.has('.entry').length).toBeGreaterThan(0);
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
+    /* This last test suite checks if the content and the title actually
+     * changes when a new feed is loaded by the loadFeed function.
+     */
     describe('New Feed Selection', function() {
-        var oldFeedName,
+        var oldFeedTitle,
             oldEntryTitles,
-            newFeedName,
-            newFirstEntryTitle,
+            newFeedTitle,
+            NewEntryTitles,
             feedNumber = 1;
 
+        /* Before each test case, first load the 'Udacity Blog' feed which is
+         * the initial feed and sets the old feed title and entry titles to
+         * those of 'Udacity Blog'. Then it loads the new feeds using the
+         * loadFeed function. The done function is used to signal the completion
+         * of the loadFeed function which is asynchronous.
+         */
         beforeEach(function(done) {
             loadFeed(0, function() {
-                oldFeedName = $('.header-title').text();
+                oldFeedTitle = $('.header-title').text();
                 oldEntryTitles = $('.feed').find('h2').text();
                 loadFeed(feedNumber, done);
             })
         });
 
+        // After each test case, move on to the next feed.
         afterEach(function() {
             feedNumber += 1;
         });
 
+        // After finishing all the tests, reload the initial feed.
         afterAll(function(done) {
             feedNumber = 0;
             loadFeed(0, done);
         });
 
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
+        /* This test checks if when the second feed (feedNumber 1) is loaded
+         * the title of the feed and the titles of the entry changes. Also, it
+         * checks if the new title matches the second feed's title in allFeeds
+         * which is 'CSS Tricks'.
          */
-
         it('changes content and updates the feed title for CSS Tricks', function() {
-            newFeedName = $('.header-title').text();
-            newFirstEntryTitle = $('.feed').find('h2').text();
+            newFeedTitle = $('.header-title').text();
+            NewEntryTitles = $('.feed').find('h2').text();
             expect(feedNumber).toBe(1);
-            expect(newFeedName).not.toBe(oldFeedName);
-            expect(newFeedName).toBe('CSS Tricks');
-            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+            expect(newFeedTitle).not.toBe(oldFeedTitle);
+            expect(newFeedTitle).toBe(allFeeds[feedNumber].name);
+            expect(NewEntryTitles).not.toBe(oldEntryTitles);
         });
 
+        /* This test checks if when the third feed (feedNumber 2) is loaded
+         * the title of the feed and the titles of the entry changes. Also, it
+         * checks if the new title matches the third feed's title in allFeeds
+         * which is 'HTML5 Rocks'.
+         */
         it('changes content and updates the feed title for HTML5 Rocks', function() {
-            newFeedName = $('.header-title').text();
-            newFirstEntryTitle = $('.feed').find('h2').text();
+            newFeedTitle = $('.header-title').text();
+            NewEntryTitles = $('.feed').find('h2').text();
             expect(feedNumber).toBe(2);
-            expect(newFeedName).not.toBe(oldFeedName);
-            expect(newFeedName).toBe('HTML5 Rocks');
-            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+            expect(newFeedTitle).not.toBe(oldFeedTitle);
+            expect(newFeedTitle).toBe(allFeeds[feedNumber].name);
+            expect(NewEntryTitles).not.toBe(oldEntryTitles);
         });
 
+        /* This test checks if when the forth feed (feedNumber 3) is loaded
+         * the title of the feed and the titles of the entry changes. Also, it
+         * checks if the new title matches the forth feed's title in allFeeds
+         * which is 'Linear Digressions'.
+         */
         it('changes content and updates the feed title for Linear Digressions', function() {
-            newFeedName = $('.header-title').text();
-            newFirstEntryTitle = $('.feed').find('h2').text();
+            newFeedTitle = $('.header-title').text();
+            NewEntryTitles = $('.feed').find('h2').text();
             expect(feedNumber).toBe(3);
-            expect(newFeedName).not.toBe(oldFeedName);
-            expect(newFeedName).toBe('Linear Digressions');
-            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+            expect(newFeedTitle).not.toBe(oldFeedTitle);
+            expect(newFeedTitle).toBe(allFeeds[feedNumber].name);
+            expect(NewEntryTitles).not.toBe(oldEntryTitles);
         });
 
+        /* This test checks if when the fifth feed (feedNumber 4) is loaded
+         * the title of the feed and the titles of the entry changes. Also, it
+         * checks if the new title matches the fifth feed's title in allFeeds
+         * which is 'CNET News'.
+         */
         it('changes content and updates the feed title for CNET News', function() {
-            newFeedName = $('.header-title').text();
-            newFirstEntryTitle = $('.feed').find('h2').text();
+            newFeedTitle = $('.header-title').text();
+            NewEntryTitles = $('.feed').find('h2').text();
             expect(feedNumber).toBe(4);
-            expect(newFeedName).not.toBe(oldFeedName);
-            expect(newFeedName).toBe('CNET News');
-            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+            expect(newFeedTitle).not.toBe(oldFeedTitle);
+            expect(newFeedTitle).toBe(allFeeds[feedNumber].name);
+            expect(NewEntryTitles).not.toBe(oldEntryTitles);
         });
 
+        /* This test checks if when the sixth feed (feedNumber 5) is loaded
+         * the title of the feed and the titles of the entry changes. Also, it
+         * checks if the new title matches the sixth feed's title in allFeeds
+         * which is 'TechCrunch Startups'.
+         */
         it('changes content and updates the feed title for TechCrunch Startups', function() {
-            newFeedName = $('.header-title').text();
-            newFirstEntryTitle = $('.feed').find('h2').text();
+            newFeedTitle = $('.header-title').text();
+            NewEntryTitles = $('.feed').find('h2').text();
             expect(feedNumber).toBe(5);
-            expect(newFeedName).not.toBe(oldFeedName);
-            expect(newFeedName).toBe('TechCrunch Startups');
-            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+            expect(newFeedTitle).not.toBe(oldFeedTitle);
+            expect(newFeedTitle).toBe(allFeeds[feedNumber].name);
+            expect(NewEntryTitles).not.toBe(oldEntryTitles);
         });
     });   
 }());
