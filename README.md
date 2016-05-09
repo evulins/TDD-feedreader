@@ -33,6 +33,7 @@ As a part of Udacity's FEND program, this project is about completing test suite
 
 #### Test Suite 4: New Feed Selection
 Before each test cases, initially the first feed is displayed and then swithced to the prospective feeds.
+
 1. Checks that the content changes and the title is updated when 'CSS Tricks' feed is loaded.
 2. Checks that the content changes and the title is updated when 'HTML5 Rocks' feed is loaded.
 3. Checks that the content changes and the title is updated when 'Linear Digressions' feed is loaded.
