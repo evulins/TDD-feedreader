@@ -103,10 +103,79 @@ $(function() {
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection"
+    /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function() {
+        var oldFeedName,
+            oldEntryTitles,
+            newFeedName,
+            newFirstEntryTitle,
+            feedNumber = 1;
+
+        beforeEach(function(done) {
+            loadFeed(0, function() {
+                oldFeedName = $('.header-title').text();
+                oldEntryTitles = $('.feed').find('h2').text();
+                loadFeed(feedNumber, done);
+            })
+        });
+
+        afterEach(function() {
+            feedNumber += 1;
+        });
+
+        afterAll(function(done) {
+            feedNumber = 0;
+            loadFeed(0, done);
+        });
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+
+        it('changes content and updates the feed title for CSS Tricks', function() {
+            newFeedName = $('.header-title').text();
+            newFirstEntryTitle = $('.feed').find('h2').text();
+            expect(feedNumber).toBe(1);
+            expect(newFeedName).not.toBe(oldFeedName);
+            expect(newFeedName).toBe('CSS Tricks');
+            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+        });
+
+        it('changes content and updates the feed title for HTML5 Rocks', function() {
+            newFeedName = $('.header-title').text();
+            newFirstEntryTitle = $('.feed').find('h2').text();
+            expect(feedNumber).toBe(2);
+            expect(newFeedName).not.toBe(oldFeedName);
+            expect(newFeedName).toBe('HTML5 Rocks');
+            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+        });
+
+        it('changes content and updates the feed title for Linear Digressions', function() {
+            newFeedName = $('.header-title').text();
+            newFirstEntryTitle = $('.feed').find('h2').text();
+            expect(feedNumber).toBe(3);
+            expect(newFeedName).not.toBe(oldFeedName);
+            expect(newFeedName).toBe('Linear Digressions');
+            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+        });
+
+        it('changes content and updates the feed title for CNET News', function() {
+            newFeedName = $('.header-title').text();
+            newFirstEntryTitle = $('.feed').find('h2').text();
+            expect(feedNumber).toBe(4);
+            expect(newFeedName).not.toBe(oldFeedName);
+            expect(newFeedName).toBe('CNET News');
+            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+        });
+
+        it('changes content and updates the feed title for TechCrunch Startups', function() {
+            newFeedName = $('.header-title').text();
+            newFirstEntryTitle = $('.feed').find('h2').text();
+            expect(feedNumber).toBe(5);
+            expect(newFeedName).not.toBe(oldFeedName);
+            expect(newFeedName).toBe('TechCrunch Startups');
+            expect(newFirstEntryTitle).not.toBe(oldEntryTitles);
+        });
+    });   
 }());
