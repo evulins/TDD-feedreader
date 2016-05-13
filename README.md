@@ -1,6 +1,10 @@
-# Project Overview
+# Project 6: Feed Reader Testing Project
+
+**Skills:** JavaScript, Jasmine, JavaScript testing frameworks
 
 As a part of Udacity's FEND program, this project is about completing test suites for a web-based application that reads RSS feeds. The [original incomplete project](https://github.com/udacity/frontend-nanodegree-feedreader) already included [Jasmine](http://jasmine.github.io/) and the first test suite. The aim is to complete all the testing suites that makes sure the application behaves as desired.
+
+#### [Checkout Live Site](http://kylekaykim.github.io/fend_feedreader)
 
 ## Getting it running
 #### 1. Clone or download the repository into your working directory
@@ -33,7 +37,6 @@ As a part of Udacity's FEND program, this project is about completing test suite
 
 #### Test Suite 4: New Feed Selection
 Before each test cases, initially the first feed is displayed and then swithced to the prospective feeds.
-
 1. Checks that the content changes and the title is updated when 'CSS Tricks' feed is loaded.
 2. Checks that the content changes and the title is updated when 'HTML5 Rocks' feed is loaded.
 3. Checks that the content changes and the title is updated when 'Linear Digressions' feed is loaded.
